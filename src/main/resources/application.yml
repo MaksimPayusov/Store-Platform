@@ -1,0 +1,49 @@
+# Конфигурация Spring Boot приложения
+spring:
+
+  # Отключаем безопасность (на время разработки)
+  security:
+    basic:
+      enabled: false
+
+  # Название приложения для идентификации в мониторинге и логах
+  application:
+    name: store-platform
+
+  # Настройка источника данных PostgreSQL
+  datasource:
+    url: jdbc:postgresql://localhost:15432/store_platform_db # URL для подключения к БД
+    username: store-platform-superadmin # имя пользователя БД (должно совпадать с docker-compose)
+    password: 1234 # пароль пользователя БД (должно совпадать с docker-compose)
+    driver-class-name: org.postgresql.Driver # драйвер для работы с PostgreSQL
+
+  # Настройки JPA и Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # создает и удаляет схему при старте/остановке
+    show-sql: true # показывать sql-запросы в логах
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect # диалект для работы с PostgreSQL
+        format-sql: true # форматировать SQL-запросы для лучшей читаемости
+
+  # Настройки Redis для кэширования
+  data:
+    redis:
+      host: localhost # хост Redis (должно совпадать с docker-compose)
+      port: 6379 # порт Redis (должно совпадать с docker-compose)
+      password: '' # пароль Redis (пустой, так как в docker-compose не задан)
+
+  # Настройки Jackson для JSON сериализации / десериализации
+  jackson:
+    property-naming-strategy: SNAKE_CASE # стратегия именования полей: SNAKE_CASE (camelCase -> snake_case)
+
+# Настройки встроенного сервера
+server:
+  port: 8080 # порт, на котором будет запущено приложение
+
+# Настройки логирования
+logging:
+  level:
+    com.store.StorePlatform: DEBUG # уровень логирования для пакетов приложения
+    org.hibernate.SQL: DEBUG # уровень логирования для SQL запросов Hibernate

@@ -1,0 +1,36 @@
+# Версия формата docker-compose файла
+version: '3.8'
+
+# Определение сервисов (контейнеров)
+services:
+
+  # Сервис PostgreSQL базы данных
+  postgres:
+    image: postgres:15 # образ PostgreSQL версии 15
+    container_name: store-platform-postgres # имя контейнера
+    environment: # переменные окружения для настройки PostgreSQL
+      POSTGRES_DB: store_platform_db # имя БД
+      POSTGRES_USER: store-platform-superadmin # имя пользователя БД
+      POSTGRES_PASSWORD: 1234 # пароль пользователя БД
+    # Проброс портов: хост:контейнер
+    ports:
+      - "15432:5432" # локальный порт 15432 будет связан с портом 5432 в контейнере
+    # Подключение тома для сохранения данных БД
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Сервис Redis для кэширования или работы с сессиями
+  redis:
+    image: redis:7-alpine # облегченный образ Redis на базе Alpine Linux
+    container_name: store-platform-redis # имя контейнера
+    # Проброс портов: хост:контейнер
+    ports:
+      - "16379:6379"
+    # Подключение тома для сохранения данных Redis
+    volumes:
+      - redis_data:/data
+
+# Определение томов для хранения данных
+volumes:
+  postgres_data:
+  redis_data:

@@ -1,0 +1,1 @@
+Сущности JPA (Java Persistence API) для таблиц БД

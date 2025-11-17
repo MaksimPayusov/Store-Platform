@@ -28,3 +28,21 @@
 - Создан каркас проекта "Платформа для интернет-магазинов"
 - Определен стек технологий: Java 21, Spring Boot 3.5.7, PostgreSQL, Redis
 - Настроена среда разработки
+
+## [Итерация 2] - 17-11-2025
+
+### Добавлено
+- Модуль авторизации с OTP через email и JWT-токены (access + refresh cookie)
+- Контроллер `AuthController` с методами `/api/v1/auth/login` и `/api/v1/auth/confirm`
+- Конфигурация безопасности: JWT фильтр, кастомные обработчики ошибок, схемы OpenAPI
+- Реализация сущности `User`, репозитория и сервисов для OTP, токенов и пользователей
+- Хранение OTP в Redis (и in-memory реализация для профиля `test`)
+- Глобальный обработчик ошибок и DTO для ответов/ошибок
+
+### Конфигурация
+- Новые настройки `security.jwt` и `security.otp` в `application.yml`
+- Профиль `test` использует H2 и in-memory OTP хранилище
+
+### Тесты
+- Unit-тесты `AuthService`, `OtpService`, `JwtTokenService`
+- Обновлен `StorePlatformApplicationTests` с профилем `test`

@@ -1,0 +1,14 @@
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+security:
+  jwt:
+    secret: test-secret-test-secret-test-secret-123456
+
